@@ -20,6 +20,7 @@ This will create a stats table in your database to store all the information.
 
 GetStats Usage
 ----------------
+
 To store any kind of metrix you want to track, all you need to add in your code is:
 
 ```
@@ -31,6 +32,7 @@ Where 'stats_name' is the name you want to assign to mertix ex: 'sign_ups','succ
 
 Examples
 --------- 
+
 If you want to track number of signups everyday, you can add a call to Stats in 'after_create' to log the amount of signups every day.
 
 ```
