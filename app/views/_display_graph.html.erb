@@ -1,3 +1,4 @@
+
 <script>
  $(function () {
     var chart;
@@ -5,7 +6,7 @@
         chart = new Highcharts.Chart({
             chart: {
                 renderTo: "container<%=stats.first[0]%>",
-                type: 'line'
+                type: "<%= graph_type %>"
             },
             title: {
                 text: "<%=stats.first[0]%>"
@@ -62,5 +63,6 @@
     
 });
 </script>
-
-<div id="container<%=stats.first[0]%>" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+<div style="<%=stats.length <= 8 ? 'width:700px;' : 'width:1500px;'%>">
+    <div id="container<%=stats.first[0]%>" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
