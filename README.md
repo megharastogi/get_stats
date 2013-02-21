@@ -16,7 +16,6 @@ Installation
 - rake db:migrate
 
 This will create a stats table in your database to store all the information.
-```
 
 GetStats Usage
 ----------------
@@ -27,7 +26,6 @@ To store any kind of metrix you want to track, all you need to add in your code 
 Stats.increment('stats_name')
 ```
 Where 'stats_name' is the name you want to assign to mertix ex: 'sign_ups','successful_payment','account deleted'
-```
 
 
 Examples
@@ -110,9 +108,11 @@ Stats.show('sign_ups','week')
 
 Displaying Graphs
 -----------------
-For displaying data returned on to grpahs I am using hightcharts.js, to add graphs to your views you can use partial 'display_graph'
+For displaying data returned in to graphs I am using highcharts.js, to add graphs to your views you will have to include add highcharts which is already added in the assets and then use partial 'display_graph'
 
 ```
+<%= javascript_include_tag :highcharts %>
+
 <% @signups = Stats.show('sign_ups','week') %>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "line"}%>
 ```

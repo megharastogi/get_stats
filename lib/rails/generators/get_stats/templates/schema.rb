@@ -1,11 +1,9 @@
 ActiveRecord::Schema.define(:version => 0) do
-
-    create_table :cheese_widgets, :force => true do |t|
-      t.string    :title
-      t.datetime  :created_at
-      t.datetime  :updated_at
+    create_table :stats, :force => true do |t|
+      t.string :stat_name
+      t.date :stat_date
+      t.integer :count
+      t.timestamps
     end
-
-    add_index :cheese_widgets, [:title]
-
+    add_index :stats, [:stat_date, :stat_name], :unique => true 
 end
