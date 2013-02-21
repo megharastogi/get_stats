@@ -26,6 +26,10 @@ To store any kind of metrix you want to track, all you need to add in your code 
 Stats.increment('stats_name')
 ```
 Where 'stats_name' is the name you want to assign to mertix ex: 'sign_ups','successful_payment','account deleted'
+<<<<<<< HEAD
+=======
+
+>>>>>>> f8e0c670dce6ce0adae760b3a4176049067fae69
 
 
 Examples
