@@ -9,7 +9,7 @@ If you have any trouble let me know on [Twitter](https://twitter.com/megharastog
 Installation
 ------------
 
-- Add `gem 'get_stats'` to your Gemfile.
+- Add `'get_stats', '~> 0.0.1'` to your Gemfile.
 - Run `bundle install`.
 - Restart your server 
 - rails generate get_stats
