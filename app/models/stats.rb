@@ -32,9 +32,9 @@ class Stats < ActiveRecord::Base
       while (now <= end_date) do 
         today_stats = @stats.select{|c| c if c.stat_date == now }
         if today_stats.blank?
-          @return_stat << [now,0]
+          @return_stat << [field,now,0]
         else
-          @return_stat << [today_stats[0].stat_date,today_stats[0].count]  
+          @return_stat << [field,today_stats[0].stat_date,today_stats[0].count]  
         end
         now = now + 1.day
       end

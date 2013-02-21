@@ -1,0 +1,66 @@
+<script>
+ $(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: "container<%=stats.first[0]%>",
+                type: 'line'
+            },
+            title: {
+                text: "<%=stats.first[0]%>"
+            },
+            subtitle: {
+                text: ""
+                // <% if session[:report_type] == 'custom' %>
+                // "From: <%=session[:report_start_date] %> to <%=session[:report_end_date]%>"
+                // <% else %>
+                // "From: <%= session[:report_type] == 'month' ? Date.today - 1.month :  Date.today - 1.week%> to <%=Date.today%>"
+                // <%end %>
+            },
+            xAxis: {
+                categories: [
+                <% stats.each_with_index do |c,i|%>
+                	"<%= c[1].strftime("%m/%d")%>"
+                	<%if i != (stats.length - 1) %>
+                	,
+                	<% end %>
+                <% end %>
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of ' +  "<%=stats.first[0]%>"
+                 }
+            },
+            tooltip: {
+                enabled: false,
+                formatter: function() {
+                    return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [{
+                name: '',
+                data: [<% stats.each_with_index do |c,i|%>
+                	<%= c[2]%>
+                		<%if i != (stats.length - 1) %>
+                	,
+                	<% end %>
+                <% end %>]
+            }]
+        });
+    });
+    
+});
+</script>
+
+<div id="container<%=stats.first[0]%>" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
