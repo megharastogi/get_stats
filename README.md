@@ -11,16 +11,17 @@ Installation
 
 - Add `gem 'get_stats'` to your Gemfile.
 - Run `bundle install`.
-- Restart your server 
 - rails generate get_stats
 - rake db:migrate
+- Restart your server 
+
 
 This will create a stats table in your database to store all the information.
 
 GetStats Usage
 ----------------
 
-To store any kind of metrix you want to track, all you need to add in your code is:
+To store any kind of metrics you want to track, all you need to add in your code is:
 
 ```
 Stats.increment('stats_name')
