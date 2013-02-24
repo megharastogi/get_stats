@@ -4,8 +4,8 @@ require File.expand_path('../lib/get_stats/version', __FILE__)
 Gem::Specification.new do |gem|
   gem.authors       = ["megha"]
   gem.email         = ["meghagulati30@gmail.com"]
-  gem.description   = %q{In app staticts analysis}
-  gem.summary       = %q{Provides tools to Ruby and Rails developers to perform staticts analysis with in there application.}
+  gem.description   = %q{Dead simply statistics for Rails.}
+  gem.summary       = %q{Provides a simple API for developers to log & view stats within their app. Uses highcharts.js for displaying beautiful graphs with one simple call.}
   gem.homepage      = ""
 
   gem.files         = `git ls-files`.split($\)
