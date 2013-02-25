@@ -124,8 +124,11 @@ To add graphs to views, include highcharts.js (already added in the assets) and 
 
 <% @signups = Stats.show('signup','week') %>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "line"}%>
+<%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "column"}%>
+
 ```
-![Sample Single Graph](./signup_line.png)
+![Sample Single Line Graph](./signups_line.png)
+![Sample Single Column Graph](./signups_column.png)
 
 If you want to display more than metric in a graph you can pass an array of different metrics to stats variable for example:
 
@@ -137,8 +140,12 @@ If you want to display more than metric in a graph you can pass an array of diff
 <% @paid_plan = Stats.show('Paid Plan signups','week') %>
 
 <%= render :partial => "./display_graph", :locals => {:stats => [@signups,@free_plan,@paid_plan],:graph_type => "line",:multiple => "true"}%>
+
+<%= render :partial => "./display_graph", :locals => {:stats => [@signups,@free_plan,@paid_plan],:graph_type => "column",:multiple => "true"}%>
+
 ```
-![Sample Multi Graph](./multiple_line_chart.png)
+![Sample Multi Line Graph](./multiple_line_chart.png)
+![Sample Multi Column Graph](./multiple_column_chart.png)
 
 
 Supported options for graph_type:
