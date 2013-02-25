@@ -106,6 +106,12 @@ Stats.show returns an array of data with count everyday
 Stats.show('signup','week') 
 ["signup", Sat, 16 Feb 2013, 0], ["signup", Sun, 17 Feb 2013, 2], ["signup", Mon, 18 Feb 2013, 4], ["signup", Tue, 19 Feb 2013, 5], ["signup", Wed, 20 Feb 2013, 0], ["signup", Thu, 21 Feb 2013, 0]]
 ```
+To view list of all the stat_names stored in the system you can call
+
+```
+Stats.show_all_stat_names  
+```
+Which will return an array of all the stat_names stored in the system
 
 Displaying Graphs
 -----------------
@@ -119,6 +125,22 @@ To add graphs to views, include highcharts.js (already added in the assets) and 
 <% @signups = Stats.show('signup','week') %>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "line"}%>
 ```
+[Sample Single Graph](megharastogi.github.com/get_stats/app/assets/images/signup_line.png)
+
+If you want to display more than metric in a graph you can pass an array of different metrics to stats variable for example:
+
+```
+<%= javascript_include_tag :highcharts %>
+
+<% @signups = Stats.show('signup','week') %>
+<% @free_plan = Stats.show('Free Plan signups','week') %>
+<% @paid_plan = Stats.show('Paid Plan signups','week') %>
+
+<%= render :partial => "./display_graph", :locals => {:stats => [@signups,@free_plan,@paid_plan],:graph_type => "line",:multiple => "true"}%>
+```
+[Sample Multi Graph](megharastogi.github.com/get_stats/app/assets/images/multiple_line_chart.png)
+
+
 Supported options for graph_type:
 - 'line'
 - 'area'

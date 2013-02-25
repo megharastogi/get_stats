@@ -1,3 +1,80 @@
+<% if (defined? multiple)  && multiple == "true"%>
+<script>
+ $(function () {
+    var chart;
+    $(document).ready(function() {
+        chart = new Highcharts.Chart({
+            chart: {
+                renderTo: "container<%=stats.first.first[0]%>",
+                type: "<%= graph_type %>"
+            },
+            title: {
+                text: "<%=stats.first.first[0]%>"
+            },
+            subtitle: {
+                text: ""
+                // <% if session[:report_type] == 'custom' %>
+                // "From: <%=session[:report_start_date] %> to <%=session[:report_end_date]%>"
+                // <% else %>
+                // "From: <%= session[:report_type] == 'month' ? Date.today - 1.month :  Date.today - 1.week%> to <%=Date.today%>"
+                // <%end %>
+            },
+            xAxis: {
+                categories: [
+                <% stats.first.each_with_index do |c,i|%>
+                	"<%= c[1].strftime("%m/%d")%>"
+                	<%if i != (stats.first.length - 1) %>
+                	,
+                	<% end %>
+                <% end %>
+                ]
+            },
+            yAxis: {
+                title: {
+                    text: 'Number of ' +  "<%=stats.first.first[0]%>"
+                 }
+            },
+            tooltip: {
+                enabled: false,
+                formatter: function() {
+                    return '<b>'+ this.series.name +'</b><br/>'+
+                        this.x +': '+ this.y +'°C';
+                }
+            },
+            plotOptions: {
+                line: {
+                    dataLabels: {
+                        enabled: true
+                    },
+                    enableMouseTracking: false
+                }
+            },
+            series: [
+            <% stats.each_with_index do |s,k| %>
+            {
+                name: "<%=s.first[0]%>",
+                data: [<% s.each_with_index do |c,i|%>
+                	<%= c[2]%>
+                		<%if i != (s.length - 1) %>
+                	,
+                	<% end %>
+                <% end %>]
+            }
+             <%if k != (stats.length - 1) %>
+                ,
+            <% end %>
+            <% end %>
+            ]
+        });
+    });
+    
+});
+</script>
+<div style="<%=stats.length <= 8 ? 'width:700px;' : 'width:1500px;'%>">
+    <div id="container<%=stats.first.first[0]%>" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
+</div>
+
+<% else %>
 
 <script>
  $(function () {
@@ -22,10 +99,10 @@
             xAxis: {
                 categories: [
                 <% stats.each_with_index do |c,i|%>
-                	"<%= c[1].strftime("%m/%d")%>"
-                	<%if i != (stats.length - 1) %>
-                	,
-                	<% end %>
+                    "<%= c[1].strftime("%m/%d")%>"
+                    <%if i != (stats.length - 1) %>
+                    ,
+                    <% end %>
                 <% end %>
                 ]
             },
@@ -52,10 +129,10 @@
             series: [{
                 name: '',
                 data: [<% stats.each_with_index do |c,i|%>
-                	<%= c[2]%>
-                		<%if i != (stats.length - 1) %>
-                	,
-                	<% end %>
+                    <%= c[2]%>
+                        <%if i != (stats.length - 1) %>
+                    ,
+                    <% end %>
                 <% end %>]
             }]
         });
@@ -63,6 +140,8 @@
     
 });
 </script>
-<div style="<%=stats.length <= 8 ? 'width:700px;' : 'width:1500px;'%>">
+<div style="<%=stats.first.length <= 8 ? 'width:700px;' : 'width:1500px;'%>">
     <div id="container<%=stats.first[0]%>" style="min-width: 400px; height: 400px; margin: 0 auto"></div>
 </div>
+
+<% end %>

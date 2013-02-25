@@ -1,0 +1,12 @@
+<table>
+	<tr>
+		<th> Date </th>
+		<th> <%=stats.first[0]%></th>
+	</tr>
+	<% stats.each do |d|%>	
+	<tr>
+		<td><%= d[1]%></td>
+		<td><%= d[2]%></td>
+	</tr>
+	<% end %>
+</table>	
