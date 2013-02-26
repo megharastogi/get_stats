@@ -122,7 +122,7 @@ To add graphs to views, include highcharts.js (already added in the assets) and 
 ```
 <%= javascript_include_tag :highcharts %>
 
-<% @signups = Stats.show('signup','week') %>
+<% @signups = Stats.show('signups','week') %>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "line"}%>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "column"}%>
 
@@ -147,12 +147,20 @@ If you want to display more than metric in a graph you can pass an array of diff
 ![Sample Multi Line Graph](./multiple_line_chart.png)
 ![Sample Multi Column Graph](./multiple_column_chart.png)
 
-
 Supported options for graph_type:
 - 'line'
 - 'area'
 - 'bar'
 - 'column'
+
+You can also display the same informations in table using 'display_table' partial.
+
+```
+<% @signups = Stats.show('signup','week') %>
+
+<%= render :partial => "./display_table", :locals => {:stats => @signups}%>
+
+```
 
 More options are under development!
 
