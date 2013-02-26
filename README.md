@@ -136,35 +136,6 @@ Stats.weekly_stats('signup')
 [["signup", Mon, 21 Jan 2013, 316], ["signup", Mon, 28 Jan 2013, 204], ["signup", Mon, 04 Feb 2013, 161], ["signup", Mon, 11 Feb 2013, 141], ["signup", Mon, 18 Feb 2013, 195], ["signup", Mon, 25 Feb 2013, 22]]
 ```
 
-Retreiving Weekly Stats
-----------------------
-
-To view stored information aggregated over each week, you just need to call Stats.weekly_stats(stat_name)
-
-```
-  Stats.weekly_stats('signup')
-  Stats.weekly_stats('successful_payment')
-```
-By default, it will output the data collected over last 6 weeks, but you can also pass options for a particular time range.
-
-```
-  Stats.weekly_stats(stat_name) // get trailing 6 weeks - default
-  Stats.weekly_stats(stat_name, start_date, end_date) // custom date range
-
-```
-```
-  Stats.weekly_stats('signup')
-  Stats.weekly_stats('signup', Date.today - 2.months, Date.today)
-
-```
-
-Stats.weekly_stats returns an array of data with count every week
-
-```
-Stats.weekly_stats('signup') 
-[["signup", Mon, 21 Jan 2013, 316], ["signup", Mon, 28 Jan 2013, 204], ["signup", Mon, 04 Feb 2013, 161], ["signup", Mon, 11 Feb 2013, 141], ["signup", Mon, 18 Feb 2013, 195], ["signup", Mon, 25 Feb 2013, 22]]
-```
-
 Retreiving Monthly Stats
 ----------------------
 
