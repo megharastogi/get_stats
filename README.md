@@ -76,36 +76,127 @@ For example, if want to track how many users signed up on each day, you can add 
   end    
 ```
 
-Retreiving Stats
-----------------
+Retreiving Daily Stats
+----------------------
 
-Now that you have stored all the information, you just need to call Stats.show(stat_name)
+Now that you have stored all the information, you just need to call Stats.daily_stats(stat_name)
 
 ```
-  Stats.show('signup')
-  Stats.show('successful_payment')
+  Stats.daily_stats('signup')
+  Stats.daily_stats('successful_payment')
 ```
 By default, it will output the data collected over last 7 days, but you can also pass options for viewing data for the trailing month, or a particular time range.
 
 ```
-  Stats.show(stat_name,'week') // get trailing 7 days - default
-  Stats.show(stat_name,'month') // get trailing 30 days
-  Stats.show(stat_name,'time_range', start_date, end_date) // custom date range
+  Stats.daily_stats(stat_name,'week') // get trailing 7 days - default
+  Stats.daily_stats(stat_name,'month') // get trailing 30 days
+  Stats.daily_stats(stat_name,'time_range', start_date, end_date) // custom date range
 
 ```
 ```
-  Stats.show('signup','week')
-  Stats.show('signup','month')
-  Stats.show('signup','time_range', Date.today - 15.days, Date.today)
+  Stats.daily_stats('signup','week')
+  Stats.daily_stats('signup','month')
+  Stats.daily_stats('signup','time_range', Date.today - 15.days, Date.today)
 
 ```
 
-Stats.show returns an array of data with count everyday
+Stats.daily_stats returns an array of data with count everyday
 
 ```
-Stats.show('signup','week') 
+Stats.daily_stats('signup','week') 
 ["signup", Sat, 16 Feb 2013, 0], ["signup", Sun, 17 Feb 2013, 2], ["signup", Mon, 18 Feb 2013, 4], ["signup", Tue, 19 Feb 2013, 5], ["signup", Wed, 20 Feb 2013, 0], ["signup", Thu, 21 Feb 2013, 0]]
 ```
+
+Retreiving Weekly Stats
+----------------------
+
+To view stored information aggregated over each week, you just need to call Stats.weekly_stats(stat_name)
+
+```
+  Stats.weekly_stats('signup')
+  Stats.weekly_stats('successful_payment')
+```
+By default, it will output the data collected over last 5 weeks, but you can also pass options for a particular time range.
+
+```
+  Stats.weekly_stats(stat_name) // get trailing 5 weeks - default
+  Stats.weekly_stats(stat_name, start_date, end_date) // custom date range
+
+```
+```
+  Stats.weekly_stats('signup')
+  Stats.weekly_stats('signup', Date.today - 15.days, Date.today)
+
+```
+
+Stats.weekly_stats returns an array of data with count everyweek
+
+```
+Stats.weekly_stats('signup') 
+[["signup", Mon, 21 Jan 2013, 316], ["signup", Mon, 28 Jan 2013, 204], ["signup", Mon, 04 Feb 2013, 161], ["signup", Mon, 11 Feb 2013, 141], ["signup", Mon, 18 Feb 2013, 195], ["signup", Mon, 25 Feb 2013, 22]]
+```
+
+Retreiving Weekly Stats
+----------------------
+
+To view stored information aggregated over each week, you just need to call Stats.weekly_stats(stat_name)
+
+```
+  Stats.weekly_stats('signup')
+  Stats.weekly_stats('successful_payment')
+```
+By default, it will output the data collected over last 6 weeks, but you can also pass options for a particular time range.
+
+```
+  Stats.weekly_stats(stat_name) // get trailing 6 weeks - default
+  Stats.weekly_stats(stat_name, start_date, end_date) // custom date range
+
+```
+```
+  Stats.weekly_stats('signup')
+  Stats.weekly_stats('signup', Date.today - 2.months, Date.today)
+
+```
+
+Stats.weekly_stats returns an array of data with count every week
+
+```
+Stats.weekly_stats('signup') 
+[["signup", Mon, 21 Jan 2013, 316], ["signup", Mon, 28 Jan 2013, 204], ["signup", Mon, 04 Feb 2013, 161], ["signup", Mon, 11 Feb 2013, 141], ["signup", Mon, 18 Feb 2013, 195], ["signup", Mon, 25 Feb 2013, 22]]
+```
+
+Retreiving Monthly Stats
+----------------------
+
+To view stored information aggregated over each month, you just need to call Stats.monthly_stats(stat_name)
+
+```
+  Stats.monthly_stats('signup')
+  Stats.monthly_stats('successful_payment')
+```
+By default, it will output the data collected over last 5 months, but you can also pass options for a particular time range.
+
+```
+  Stats.monthly_stats(stat_name) // get trailing 5 months - default
+  Stats.monthly_stats(stat_name, start_date, end_date) // custom date range
+
+```
+```
+  Stats.monthly_stats('signup')
+  Stats.monthly_stats('signup', Date.today - 8.months, Date.today)
+
+```
+
+Stats.monthly_stats returns an array of data with count every month
+
+```
+Stats.monthly_stats('signup') 
+[["signup", Mon, 01 Oct 2012, 1378], ["signup", Thu, 01 Nov 2012, 253], ["signup", Sat, 01 Dec 2012, 474], ["signup", Tue, 01 Jan 2013, 1391], ["signup", Mon, 25 Feb 2013, 565]]
+```
+
+Retreiving All Stat Names
+-------------------------
+
 To view list of all the stat_names stored in the system you can call
 
 ```
@@ -113,8 +204,8 @@ Stats.show_all_stat_names
 ```
 Which will return an array of all the stat_names stored in the system
 
-Displaying Graphs
------------------
+Displaying Graphs or Table
+--------------------------
 For displaying beautiful graphs, the gem uses [highcharts.js](http://www.highcharts.com/).
 
 To add graphs to views, include highcharts.js (already added in the assets) and then use the partial 'display_graph'. Example below:
@@ -122,7 +213,7 @@ To add graphs to views, include highcharts.js (already added in the assets) and 
 ```
 <%= javascript_include_tag :highcharts %>
 
-<% @signups = Stats.show('signups','week') %>
+<% @signups = Stats.daily_stats('signups','week') %>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "line"}%>
 <%= render :partial => "./display_graph", :locals => {:stats => @signups,:graph_type => "column"}%>
 
@@ -135,9 +226,9 @@ If you want to display more than metric in a graph you can pass an array of diff
 ```
 <%= javascript_include_tag :highcharts %>
 
-<% @signups = Stats.show('signup','week') %>
-<% @free_plan = Stats.show('Free Plan signups','week') %>
-<% @paid_plan = Stats.show('Paid Plan signups','week') %>
+<% @signups = Stats.daily_stats('signup','week') %>
+<% @free_plan = Stats.daily_stats('Free Plan signups','week') %>
+<% @paid_plan = Stats.daily_stats('Paid Plan signups','week') %>
 
 <%= render :partial => "./display_graph", :locals => {:stats => [@signups,@free_plan,@paid_plan],:graph_type => "line",:multiple => "true"}%>
 
@@ -153,7 +244,7 @@ Supported options for graph_type:
 - 'bar'
 - 'column'
 
-You can also display the same informations in table using 'display_table' partial.
+You can also display the same information in table using 'display_table' partial.
 
 ```
 <% @signups = Stats.show('signup','week') %>
