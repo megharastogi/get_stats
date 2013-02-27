@@ -9,7 +9,7 @@ If you have any questions or feedback, please reach out to me on [Twitter](https
 Installation
 ------------
 
-- Add `'get_stats', '~> 0.0.1'` to your Gemfile.
+- Add `'get_stats'` to your Gemfile.
 - Run `bundle install`.
 - rails generate get_stats
 - rake db:migrate
