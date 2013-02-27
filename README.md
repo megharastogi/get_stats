@@ -104,7 +104,7 @@ Stats.daily_stats returns an array of data with count everyday
 
 ```
 Stats.daily_stats('signup','week') 
-["signup", Sat, 16 Feb 2013, 0], ["signup", Sun, 17 Feb 2013, 2], ["signup", Mon, 18 Feb 2013, 4], ["signup", Tue, 19 Feb 2013, 5], ["signup", Wed, 20 Feb 2013, 0], ["signup", Thu, 21 Feb 2013, 0]]
+[["signup", Sat, 16 Feb 2013, 0], ["signup", Sun, 17 Feb 2013, 2], ["signup", Mon, 18 Feb 2013, 4], ["signup", Tue, 19 Feb 2013, 5], ["signup", Wed, 20 Feb 2013, 0], ["signup", Thu, 21 Feb 2013, 0]]
 ```
 
 Retreiving Weekly Stats
@@ -192,7 +192,7 @@ To add graphs to views, include highcharts.js (already added in the assets) and 
 ![Sample Single Line Graph](./signups_line.png)
 ![Sample Single Column Graph](./signups_column.png)
 
-If you want to display more than metric in a graph you can pass an array of different metrics to stats variable for example:
+If you want to display more than one metric in a graph you can pass an array of different metrics to stats variable and pass variable 'multiple' true for example:
 
 ```
 <%= javascript_include_tag :highcharts %>
