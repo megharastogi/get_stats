@@ -53,22 +53,14 @@ class Stats < ActiveRecord::Base
     alias :daily_stats :show
   end
 
-  # def self.weekly_stats(field,report_start_date=nil,report_end_date=nil)
-  #   start_date,end_date =  process_dates('weekly',report_start_date,report_end_date)
-  #   process_weekly_and_monthly_stats('weekly',field,start_date,end_date)
-  # end
-   
-  # def self.monthly_stats(field,report_start_date=nil,report_end_date=nil)
-  #   start_date,end_date = process_dates('monthly',report_start_date,report_end_date)
-  #   process_weekly_and_monthly_stats('monthly',field,start_date,end_date)
-  # end
-   
-  %w(monthly weekly).each do |name|
-    define_method "#{name}_stats(field,report_start_date=nil,report_end_date=nil)" do |i|
-      start_date,end_date = process_dates("#{name}",report_start_date,report_end_date)
-      process_weekly_and_monthly_stats("#{name}",field,start_date,end_date)
-    end
+  ["monthly","weekly"].each do |name|
+  class_eval %{ def self.#{name}_stats(field,report_start_date=nil,report_end_date=nil)
+                  start_date,end_date = process_dates("#{name}",report_start_date,report_end_date)
+                  process_weekly_and_monthly_stats("#{name}",field,start_date,end_date)
+                end
+              }
   end
+ 
 
   def self.process_weekly_and_monthly_stats(method_type,field,start_date,end_date)
     @stats = Stats.find(:all,:conditions =>["stat_name=? and stat_date >=? and stat_date <=?",field,start_date,end_date])
